@@ -15,8 +15,14 @@ export default defineConfig({
   
   // Build configuration
   build: {
-    // Tauri supports es2021
-    target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
+    // Tauri supports es2021 - use appropriate target per platform
+    // Windows uses Chromium (WebView2), Linux uses WebKitGTK, macOS uses WebKit
+    target: (() => {
+      const platform = process.env.TAURI_PLATFORM;
+      if (platform === 'windows') return 'chrome105';
+      if (platform === 'linux') return 'firefox115';
+      return 'safari13'; // macOS and default
+    })(),
     
     // Don't produce source maps for production
     sourcemap: false,
