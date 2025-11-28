@@ -4,6 +4,15 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+env:
+  RELEASE_VERSION: ${{ github.event.inputs.version || github.ref_name }}
 
 jobs:
   build-desktop:
@@ -40,12 +49,6 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: ${{ github.ref_name }}
-          releaseName: 'Release ${{ github.ref_name }}'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: false
-          prerelease: false
 
       - name: Upload Linux artifacts
         if: matrix.platform == 'ubuntu-latest'
@@ -122,6 +125,21 @@ jobs:
       contents: write
     
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create tag if not exists (for manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git rev-parse "${{ env.RELEASE_VERSION }}" >/dev/null 2>&1; then
+            git tag "${{ env.RELEASE_VERSION }}"
+            git push origin "${{ env.RELEASE_VERSION }}"
+          fi
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -133,6 +151,18 @@ jobs:
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          name: 'Release ${{ env.RELEASE_VERSION }}'
+          body: |
+            ## Download Links
+            
+            See the assets below to download this version and install.
+            
+            ### Available Platforms:
+            - **Windows**: `.exe` (NSIS installer) or `.msi` (MSI installer)
+            - **macOS**: `.dmg` (Disk image)
+            - **Linux**: `.deb` (Debian/Ubuntu) or `.AppImage` (Portable)
+            - **Android**: `.apk` (Android package)
           files: |
             artifacts/linux-artifacts/*.deb
             artifacts/linux-artifacts/*.AppImage
