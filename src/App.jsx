@@ -131,7 +131,7 @@ const Fonts = () => (
       color: var(--acid-green);
       font-family: 'Space Mono', monospace;
       overflow-x: hidden;
-      cursor: default; /* Changed from crosshair to default as requested */
+      cursor: default; /* Standard cursor for better usability */
     }
 
     /* Custom Scrollbar */
@@ -233,10 +233,29 @@ const Fonts = () => (
       0%, 100% { opacity: 1; }
       50% { opacity: 0.7; }
     }
+
+    /* Slow spin animation for loading indicators */
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+      animation: spin-slow 3s linear infinite;
+    }
   `}} />
 );
 
 /* COMPONENTS */
+
+// System monitor configuration constants
+const SYSTEM_MONITOR_CONFIG = {
+  UPDATE_INTERVAL_MS: 1500,      // How often to update stats
+  CPU_SPIKE_INTERVAL: 8,         // Every N ticks, simulate a CPU spike
+  CPU_SPIKE_BASE: 85,            // Base CPU% during spike
+  CPU_SPIKE_VARIANCE: 14,        // Random variance during spike
+  FALLBACK_MEM_BASE: 20,         // Base memory% when API unavailable
+  FALLBACK_MEM_VARIANCE: 20,     // Random variance for fallback memory
+};
 
 const useSystemMonitor = () => {
   const [stats, setStats] = useState({ cpu: 0, mem: 0, net: 0 });
@@ -250,18 +269,22 @@ const useSystemMonitor = () => {
       if (perf && perf.memory) {
         memUsage = Math.round((perf.memory.usedJSHeapSize / perf.memory.jsHeapSizeLimit) * 100);
       } else {
-        memUsage = 20 + Math.floor(Math.random() * 20);
+        // Fallback for browsers without memory API
+        memUsage = SYSTEM_MONITOR_CONFIG.FALLBACK_MEM_BASE + 
+          Math.floor(Math.random() * SYSTEM_MONITOR_CONFIG.FALLBACK_MEM_VARIANCE);
       }
+      // Simulate CPU with periodic spikes for visual effect
       let simulatedCpu = Math.floor(30 + Math.sin(Date.now() / 2000) * 20 + Math.random() * 15);
-      if (ticks % 8 === 0) {
-         simulatedCpu = 85 + Math.floor(Math.random() * 14);
+      if (ticks % SYSTEM_MONITOR_CONFIG.CPU_SPIKE_INTERVAL === 0) {
+        simulatedCpu = SYSTEM_MONITOR_CONFIG.CPU_SPIKE_BASE + 
+          Math.floor(Math.random() * SYSTEM_MONITOR_CONFIG.CPU_SPIKE_VARIANCE);
       }
       setStats({
         cpu: Math.max(5, Math.min(100, simulatedCpu)),
         mem: memUsage,
         net: (Math.random() * 5.5).toFixed(1)
       });
-    }, 1500);
+    }, SYSTEM_MONITOR_CONFIG.UPDATE_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [ticks]);
   return stats;
