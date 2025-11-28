@@ -1,6 +1,84 @@
 # URoot-964
 
-A cross-platform desktop and mobile application built with React, Tauri (desktop), and Capacitor (mobile).
+A cross-platform desktop and mobile application built with React, Tauri (desktop), and Capacitor (mobile). Features a cyberpunk-styled system dashboard with internet speed testing, file management, and real-time system monitoring.
+
+---
+
+## 📸 Screenshots
+
+### Desktop Version
+
+#### Home Page
+![Home Page Desktop](screenshots/home-desktop.png)
+
+#### Dashboard - Upload Module with System Monitoring
+![Dashboard Upload](screenshots/dashboard-upload-desktop.png)
+
+#### Network Speed Test - Speedometer Gauge
+![Network Speedometer](screenshots/network-speedtest-desktop.png)
+
+#### Speed Test Results
+![Speed Test Results](screenshots/speedtest-running-desktop.png)
+
+### Mobile Version (Responsive Design)
+
+| Home Page | Dashboard |
+|-----------|-----------|
+| ![Home Mobile](screenshots/home-mobile.png) | ![Dashboard Mobile](screenshots/dashboard-mobile.png) |
+
+---
+
+## ✨ Features
+
+### 🌐 Network Speed Test
+- **Real-time internet speed measurement** with animated speedometer gauge
+- **Download and upload speed testing** with visual progress indicators
+- **Connection analysis** showing connection type (WiFi, 4G, LTE) and latency
+- **Performance metrics** including:
+  - Peak bandwidth (MB/s)
+  - 1GB file download time estimate
+  - 100MB asset load time
+  - Concurrent HD stream capacity
+  - Connection rank classification (NEURAL_LINK, FIBER_OPTIC, BROADBAND, LTE_CELLULAR, COPPER_WIRE)
+
+### 📊 Real-time System Monitoring
+- **CPU usage tracking** with visual alerts (red indicators when >80%)
+- **RAM/Memory usage display** using actual browser memory API when available
+- **Network activity monitoring** showing current MB/s throughput
+- **Animated status indicators** with pulse effects
+
+### 📁 Universal File Viewer & Code Runner
+- **Multi-format file support**:
+  - Images (JPG, PNG, GIF, WebP, SVG, BMP, HEIF, PSD)
+  - Videos (MP4, MOV, MKV, WebM, AVI, FLV) with custom player controls
+  - Audio (MP3, WAV, AAC, FLAC, OGG, M4A) with visual player
+  - Code files (HTML, CSS, JS, JSX, Python, Java, C++, SQL, JSON)
+  - Documents (PDF, TXT)
+  - Archives (ZIP, RAR, 7z) and 3D models (OBJ, FBX, STL)
+- **In-browser code execution** with Babel support for JSX/React
+- **Sandbox mode** for secure code execution
+- **Built-in code editor** with syntax highlighting
+
+### 🎨 Cyberpunk UI Design
+- **Acid-green on deep-black color scheme**
+- **CRT scanline and noise overlay effects**
+- **Glitch animations on hover**
+- **Custom audio feedback** (click, hover, boot sounds via Web Audio API)
+- **Japanese typography integration**
+
+### 📱 Responsive Design
+- **Optimized for 16:9 and 20:9 aspect ratios**
+- **Mobile-first responsive layout**
+- **Touch-friendly interface**
+- **Adaptive navigation for different screen sizes**
+
+### ⚡ Performance Optimizations
+- **Preloaded Google Fonts** to prevent FOUC (Flash of Unstyled Content)
+- **Optimized Vite build** with code splitting and tree shaking
+- **Lazy loading** for media content
+- **Efficient re-renders** with React hooks and useMemo
+
+---
 
 ## System Requirements
 
