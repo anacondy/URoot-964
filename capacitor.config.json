@@ -1,0 +1,13 @@
+{
+  "appId": "com.montecristovault.app",
+  "appName": "Monte Cristo Vault",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "buildOptions": {
+      "releaseType": "APK"
+    }
+  }
+}

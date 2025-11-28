@@ -1,0 +1,37 @@
+[package]
+name = "montecristovault"
+version = "1.0.0"
+description = "Monte Cristo Vault - Cross-platform application"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = ["shell-open"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+# RELEASE PROFILE - Optimized for minimal binary size
+# Trade-offs: No debug symbols, no panic unwinding, aggressive size optimization
+# These settings target < 10MB application size for distribution via GitHub Releases
+# For development/debugging, use `cargo build` without --release flag
+
+# Strip all debug symbols for minimal size
+strip = true
+# Enable Link Time Optimization for smaller binary
+lto = true
+# Optimize for size over speed (use "3" for speed optimization)
+opt-level = "z"
+# Reduce code generation units for better optimization
+codegen-units = 1
+# Abort on panic - smaller binary but no stack traces on panic
+panic = "abort"
