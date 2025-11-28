@@ -6,25 +6,13 @@ A cross-platform desktop and mobile application built with React, Tauri (desktop
 
 ## 📸 Screenshots
 
-### Desktop Version
+### Dashboard - Overview Module
+![Overview Module](https://github.com/user-attachments/assets/e3f07202-8120-4e28-a89c-37cd8bd58fd0)
 
-#### Home Page
-![Home Page Desktop](screenshots/home-desktop.png)
+### Dashboard - Upload Module with Video Player
+![Upload Module with Video](https://github.com/user-attachments/assets/76f91b24-f5c5-452b-bcf0-ab6ccd173f17)
 
-#### Dashboard - Upload Module with System Monitoring
-![Dashboard Upload](screenshots/dashboard-upload-desktop.png)
-
-#### Network Speed Test - Speedometer Gauge
-![Network Speedometer](screenshots/network-speedtest-desktop.png)
-
-#### Speed Test Results
-![Speed Test Results](screenshots/speedtest-running-desktop.png)
-
-### Mobile Version (Responsive Design)
-
-| Home Page | Dashboard |
-|-----------|-----------|
-| ![Home Mobile](screenshots/home-mobile.png) | ![Dashboard Mobile](screenshots/dashboard-mobile.png) |
+*The cyberpunk-styled interface features acid-green on deep-black color scheme, CRT scanline effects, and real-time system monitoring (CPU, RAM, Network) in the header.*
 
 ---
 
