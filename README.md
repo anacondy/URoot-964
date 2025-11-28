@@ -181,7 +181,9 @@ cd android && ./gradlew assembleDebug
 
 ## Release Process
 
-Releases are automated via GitHub Actions. To create a new release:
+Releases are automated via GitHub Actions. There are two ways to create a new release:
+
+### Option 1: Using Git Tags (Recommended)
 
 1. Update the version in `package.json` and `src-tauri/tauri.conf.json`
 2. Commit your changes
@@ -193,6 +195,15 @@ Releases are automated via GitHub Actions. To create a new release:
 4. GitHub Actions will automatically:
    - Build the app for Windows, macOS, Linux, and Android
    - Create a GitHub Release with all installers attached
+
+### Option 2: Manual Release via GitHub Actions
+
+1. Go to the [Actions tab](../../actions) in this repository
+2. Click on "Release" workflow in the left sidebar
+3. Click "Run workflow" button on the right
+4. Enter the version number (e.g., `v1.0.0`)
+5. Click "Run workflow" to start the build
+6. Once complete, the release will be available on the [Releases page](../../releases)
 
 ---
 
