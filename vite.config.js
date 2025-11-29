@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+    base: '/URoot-964',
   plugins: [react()],
   
   // Clear the screen on build
