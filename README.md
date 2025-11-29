@@ -1,5 +1,10 @@
 # URoot-964
 
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-GitHub_Pages-d4ff00?style=for-the-badge)](https://anacondy.github.io/URoot-964/)
+[![GitHub Release](https://img.shields.io/github/v/release/anacondy/URoot-964?style=for-the-badge&color=d4ff00)](https://github.com/anacondy/URoot-964/releases)
+
+> **🚀 [Try the Live Demo →](https://anacondy.github.io/URoot-964/)**
+
 A cross-platform desktop and mobile application built with React, Tauri (desktop), and Capacitor (mobile). Features a cyberpunk-styled system dashboard with internet speed testing, file management, and real-time system monitoring.
 
 ---
