@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
     <meta name="description" content="Monte Cristo Vault - A cyberpunk-styled system dashboard with internet speed testing, file management, and system monitoring." />
     <meta name="theme-color" content="#080808" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Performance and display optimizations -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="color-scheme" content="dark" />
     <title>Monte Cristo Vault</title>
     
     <!-- Preconnect to Google Fonts for faster loading -->
@@ -32,14 +36,36 @@
         color: var(--acid-green);
         font-family: 'Space Mono', monospace;
         overflow-x: hidden;
+        /* High refresh rate optimizations */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        /* Hardware acceleration */
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        /* Touch optimizations */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
       }
       #root {
         min-height: 100vh;
+        /* GPU acceleration for smooth scrolling */
+        will-change: scroll-position;
+        contain: layout style paint;
+      }
+      /* Smooth scroll behavior optimized for high refresh rates */
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
       }
     </style>
-    <script type="module" crossorigin src="/URoot-964/assets/index-IIR3OCnW.js"></script>
-    <link rel="modulepreload" crossorigin href="/URoot-964/assets/vendor-C11u62No.js">
-    <link rel="modulepreload" crossorigin href="/URoot-964/assets/icons-DC7csu8z.js">
+    <script type="module" crossorigin src="/URoot-964/assets/js/index-rK1t1s77.js"></script>
+    <link rel="modulepreload" crossorigin href="/URoot-964/assets/js/vendor-C11u62No.js">
+    <link rel="modulepreload" crossorigin href="/URoot-964/assets/js/icons-DC7csu8z.js">
   </head>
   <body>
     <div id="root"></div>

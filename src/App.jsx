@@ -132,12 +132,42 @@ const Fonts = () => (
       font-family: 'Space Mono', monospace;
       overflow-x: hidden;
       cursor: default; /* Standard cursor for better usability */
+      /* Performance optimizations */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      /* GPU acceleration */
+      transform: translate3d(0, 0, 0);
+      /* Touch optimizations */
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      /* Prevent overscroll bounce on mobile */
+      overscroll-behavior-y: none;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--deep-black); }
-    ::-webkit-scrollbar-thumb { background: var(--acid-green); border-radius: 0px; }
+    /* Custom Scrollbar - optimized for smooth scrolling */
+    ::-webkit-scrollbar { 
+      width: 6px; 
+      height: 6px; 
+    }
+    ::-webkit-scrollbar-track { 
+      background: var(--deep-black); 
+    }
+    ::-webkit-scrollbar-thumb { 
+      background: var(--acid-green); 
+      border-radius: 0px;
+      will-change: background;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--acid-green);
+      opacity: 0.8;
+    }
+    
+    /* Optimize scrolling performance for all scrollable containers */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--acid-green) var(--deep-black);
+    }
 
     .font-poster { font-family: 'Archivo Black', sans-serif; }
     .font-jp { font-family: 'Noto Sans JP', sans-serif; }
@@ -158,6 +188,10 @@ const Fonts = () => (
       z-index: 50;
       opacity: 0.05;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      /* Performance optimizations */
+      will-change: opacity;
+      contain: strict;
+      transform: translateZ(0);
     }
 
     .scanlines {
@@ -174,11 +208,17 @@ const Fonts = () => (
       z-index: 51;
       pointer-events: none;
       opacity: 0.6;
+      /* Performance optimizations */
+      will-change: opacity;
+      contain: strict;
+      transform: translateZ(0);
     }
 
     .glitch-hover:hover {
       animation: glitch-anim-1 0.3s infinite linear alternate-reverse;
       text-shadow: 2px 0 red, -2px 0 blue;
+      /* Performance optimization */
+      will-change: transform, text-shadow;
     }
     
     .poster-image-container {
@@ -193,11 +233,25 @@ const Fonts = () => (
 
     .page-transition {
       animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      /* Performance optimization */
+      will-change: opacity, transform;
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
       to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    
+    /* Optimize all animated elements */
+    [class*="animate-"] {
+      will-change: transform, opacity;
+    }
+    
+    /* Mobile-specific optimizations */
+    @media (max-width: 768px) {
+      .page-transition {
+        animation-duration: 0.5s; /* Faster on mobile */
+      }
     }
 
     .vertical-text {
@@ -208,6 +262,9 @@ const Fonts = () => (
     
     .gauge-needle {
       transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      /* Performance optimization */
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     @keyframes ripple-panic {
@@ -241,6 +298,49 @@ const Fonts = () => (
     }
     .animate-spin-slow {
       animation: spin-slow 3s linear infinite;
+      /* Performance optimization */
+      will-change: transform;
+      transform: translateZ(0);
+    }
+    
+    /* Responsive design optimizations for different aspect ratios */
+    /* 16:9 aspect ratio optimizations (most common mobile) */
+    @media (aspect-ratio: 16/9) {
+      body {
+        contain: layout style;
+      }
+    }
+    
+    /* 20:9 aspect ratio optimizations (modern tall phones) */
+    @media (min-aspect-ratio: 19/9) and (max-aspect-ratio: 21/9) {
+      body {
+        contain: layout style;
+      }
+    }
+    
+    /* General mobile optimizations */
+    @media (max-width: 768px) {
+      /* Reduce complexity of effects on mobile for better performance */
+      .noise-overlay {
+        opacity: 0.02;
+      }
+      .scanlines {
+        opacity: 0.3;
+      }
+      /* Optimize touch targets */
+      button, a, [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+      }
+    }
+    
+    /* High refresh rate optimizations */
+    @media (min-resolution: 120dpi) {
+      * {
+        /* Enable GPU acceleration for smoother animations */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
     }
   `}} />
 );
@@ -290,17 +390,19 @@ const useSystemMonitor = () => {
   return stats;
 };
 
-const HeroImage = () => (
+const HeroImage = React.memo(() => (
   <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden poster-image-container">
     <div className="absolute inset-0 bg-black mix-blend-multiply z-10"></div>
     <img 
       src="https://images.unsplash.com/photo-1618609378039-b572f64c5b42?q=80&w=1000&auto=format&fit=crop" 
       alt="Distorted Figure"
       className="w-full h-full object-cover object-center scale-110"
+      loading="lazy"
+      decoding="async"
     />
     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZDRmZjAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')] opacity-50 z-20 pointer-events-none"></div>
   </div>
-);
+));
 
 const NetworkSpeedometer = () => {
   const [speed, setSpeed] = useState(0);
