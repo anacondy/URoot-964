@@ -55,12 +55,31 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           icons: ['lucide-react'],
         },
+        // Optimize asset file names
+        assetFileNames: (assetInfo) => {
+          let extType = assetInfo.name.split('.').at(1);
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = 'img';
+          }
+          return `assets/${extType}/[name]-[hash][extname]`;
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
       },
     },
+    
+    // Performance optimizations
+    reportCompressedSize: false, // Faster builds
+    cssCodeSplit: true, // Split CSS for better caching
   },
   
   // Optimize dependencies
   optimizeDeps: {
     include: ['react', 'react-dom', 'lucide-react'],
+  },
+  
+  // CSS optimizations
+  css: {
+    devSourcemap: false,
   },
 });
