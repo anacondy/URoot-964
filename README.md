@@ -11,13 +11,21 @@ A cross-platform desktop and mobile application built with React, Tauri (desktop
 
 ## 📸 Screenshots
 
-### Dashboard - Overview Module
-![Overview Module](https://github.com/user-attachments/assets/e3f07202-8120-4e28-a89c-37cd8bd58fd0)
+### Desktop View (1920x1080)
 
-### Dashboard - Upload Module with Video Player
-![Upload Module with Video](https://github.com/user-attachments/assets/76f91b24-f5c5-452b-bcf0-ab6ccd173f17)
+#### Homepage
+![Desktop Homepage](https://github.com/user-attachments/assets/c3fa0aa9-652c-473b-ab88-148c36088fe2)
 
-*The cyberpunk-styled interface features acid-green on deep-black color scheme, CRT scanline effects, and real-time system monitoring (CPU, RAM, Network) in the header.*
+#### Dashboard - Upload Module
+![Desktop Dashboard](https://github.com/user-attachments/assets/786a8f73-51a2-49a8-8dc5-4cb90fc59b0c)
+
+### Mobile View - 16:9 Aspect Ratio (360x640)
+![Mobile Homepage 16:9](https://github.com/user-attachments/assets/a463026f-02e1-4d4c-9880-d54f0201fbb8)
+
+### Mobile View - 20:9 Aspect Ratio (360x800)
+![Mobile Homepage 20:9](https://github.com/user-attachments/assets/740bcea6-897b-4f8b-981c-5a1850034d29)
+
+*The cyberpunk-styled interface features acid-green on deep-black color scheme, CRT scanline effects, and real-time system monitoring (CPU, RAM, Network) in the header. Fully optimized for high refresh rate displays (60Hz, 90Hz, 120Hz, 144Hz) and smooth scrolling on all devices.*
 
 ---
 
@@ -62,14 +70,35 @@ A cross-platform desktop and mobile application built with React, Tauri (desktop
 ### 📱 Responsive Design
 - **Optimized for 16:9 and 20:9 aspect ratios**
 - **Mobile-first responsive layout**
-- **Touch-friendly interface**
+- **Touch-friendly interface** with 44px minimum touch targets
 - **Adaptive navigation for different screen sizes**
+- **Viewport optimizations** with proper meta tags for mobile devices
+- **Safe area support** for modern notched displays
 
 ### ⚡ Performance Optimizations
+
+#### High Refresh Rate Support
+- **120Hz/144Hz display optimization** with GPU acceleration
+- **Smooth scrolling** optimized for high refresh rate displays
+- **Hardware-accelerated animations** using CSS transforms
+- **will-change properties** for animated elements
+- **Reduced motion support** for accessibility
+
+#### Mobile Performance
+- **60 FPS target on low-end devices** with optimized effects
+- **CSS containment** for better rendering performance
+- **Reduced visual effects** on mobile for smoother performance
+- **Touch action optimization** to prevent scroll jank
+- **Overscroll behavior control** to prevent bounce effects
+
+#### Build & Loading Optimizations
 - **Preloaded Google Fonts** to prevent FOUC (Flash of Unstyled Content)
 - **Optimized Vite build** with code splitting and tree shaking
-- **Lazy loading** for media content
-- **Efficient re-renders** with React hooks and useMemo
+- **Lazy loading** for media content and images
+- **Efficient re-renders** with React.memo and useMemo
+- **CSS code splitting** for better caching
+- **Terser minification** with aggressive settings
+- **Asset optimization** with organized output structure
 
 ---
 
